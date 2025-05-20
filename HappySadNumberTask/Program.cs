@@ -25,6 +25,62 @@
             //The program should take a number as input and output whether the number is happy or sad
             //test your program with the inputs of 19 and 20
             //show your output in the readme file
+
+
+            Console.Write("Enter a number: ");
+            try
+            {
+                int input = Convert.ToInt32(Console.ReadLine());
+
+                if (IsHappyNumber(input))
+                {
+                    Console.WriteLine($"{input} is a Happy number");
+                }
+                else
+                {
+                    Console.WriteLine($"{input} is a Sad number");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+        }
+
+        static bool IsHappyNumber(int number)
+        {
+            int[] seenNumbers = new int[1000];
+            int count = 0;
+
+            while (number != 1)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (seenNumbers[i] == number)
+                    {
+                        return false; // loop detected
+                    }
+                }
+
+                seenNumbers[count] = number;
+                count++;
+
+                number = SumOfSquares(number);
+            }
+
+            return true;
+        }
+
+        static int SumOfSquares(int number)
+        {
+            int sum = 0;
+            while (number > 0)
+            {
+                int digit = number % 10;
+                sum += digit * digit;
+                number /= 10;
+            }
+            return sum;
         }
     }
 }
